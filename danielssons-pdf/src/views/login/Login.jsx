@@ -16,6 +16,8 @@ const Login = () => {
         <div className="lg w-64 h-64 bg-logo bg-contain bg-no-repeat"></div>
       </div>
       <div className="w-3/5 bg-gradient-to-br from-primaryOpacity to-primary justify-center items-center flex">
+       <div className="w-3/5 p-10">
+        <h2 className="text-white text-3xl my-10">Välkommen</h2>
         <AppForm 
         initialValues={{
           username:'',
@@ -23,12 +25,13 @@ const Login = () => {
         }}
         onSubmit={()=>{console.log('login pressed')}}
         >
-          <div className="grid gap-6 mb-6 w-full justify-center items-center">
-          <AppFormField name='username' icon={<FaUser color={colors.light}/>} label='Username'/>
-          <AppFormField name='password' icon={<FaLock color={colors.light}/>} label='Password'/>
+          <div className="grid gap-6 mb-6 w-full" >
+          <AppFormField name='username' icon={<FaUser color={colors.light}/>} label='Användarnamn'/>
+          <AppFormField name='password' icon={<FaLock color={colors.light}/>} label='Lösenord'/>
           <SubmitButton title='Log in' type='submit'/>
           </div>
         </AppForm>
+          </div>
       </div>
     </div>
   );
