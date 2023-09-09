@@ -1,5 +1,8 @@
-const AppButton = ({title, onClick ,...otherProps}) => {
-    return (  <button {...otherProps} className="rounded-md bg-blue-500 p-3 text-white uppercase font-semibold" onClick={onClick}>{title}</button>
+import colors from "../config/colors";
+
+const AppButton = ({title, onClick, color,textColor, ...otherProps}) => {
+
+    return (  <button {...otherProps} className={`rounded-md p-3 text-${textColor} uppercase font-semibold hover:shadow-lg hover:opacity-80 duration-500 bg-${color}`}onClick={onClick}>{title}</button>
  );
 }
  

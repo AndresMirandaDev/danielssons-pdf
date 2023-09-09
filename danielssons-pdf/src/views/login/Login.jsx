@@ -1,14 +1,27 @@
-import AppForm from "../../components/forms/AppForm";
-import AppFormField from "../../components/forms/AppFormField";
-import AppTextInput from "../../components/forms/AppTextInput";
 import { FaUser } from 'react-icons/fa';
 import { FaLock } from 'react-icons/fa';
-import colors from "../../config/colors";
-import AppButton from "../../components/AppButton";
-import SubmitButton from "../../components/forms/SubmitButton";
 
+
+import AppFormField from "../../components/forms/AppFormField";
+import AppForm from "../../components/forms/AppForm";
+import colors from "../../config/colors";
+import SubmitButton from "../../components/forms/SubmitButton";
+import useAuth from "../../auth/useAuth";
+import authApi from '../../api/auth'
+import ErrorMessage from '../../components/ErrorMessage';
+import { useState } from 'react';
 
 const Login = () => {
+  const auth =  useAuth()
+  const [loginFailed, setLoginFailed] = useState(false)
+
+  const handleSubmit = async ({email, password}) =>{
+   const result =  await authApi.login(email, password)
+   if(!result.ok) return setLoginFailed(true)
+
+   auth.logIn(result.data['este es el token']) 
+
+  }
   
   return (
     <div className='h-screen lg (1024px) display: flex' >
@@ -20,15 +33,16 @@ const Login = () => {
         <h2 className="text-white text-3xl my-10">Välkommen</h2>
         <AppForm 
         initialValues={{
-          username:'',
+          email:'',
           password:''
         }}
-        onSubmit={()=>{console.log('login pressed')}}
+        onSubmit={handleSubmit}
         >
           <div className="grid gap-6 mb-6 w-full" >
-          <AppFormField name='username' icon={<FaUser color={colors.light}/>} label='Användarnamn'/>
-          <AppFormField name='password' icon={<FaLock color={colors.light}/>} label='Lösenord'/>
-          <SubmitButton title='Log in' type='submit'/>
+          <AppFormField name='email' icon={<FaUser color={colors.light}/>} label='Användarnamn'/>
+          <AppFormField name='password' icon={<FaLock color={colors.light}/>} label='Lösenord' type='password'/>
+          <ErrorMessage error='Fel användarnamn och/eller lösenord' visible={loginFailed}/>
+          <SubmitButton title='Log in' type='submit' color='yellow' textColor='primary'/>
           </div>
         </AppForm>
           </div>
