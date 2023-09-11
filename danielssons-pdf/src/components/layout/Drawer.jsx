@@ -17,7 +17,7 @@ const Drawer = ({children}) => {
                 <div className="w-6 h-1 mb-3 -rotate-45 bg-white rounded-lg"></div>
                 <div className="w-6 h-1 rotate-45 bg-white rounded-lg"></div>
             </label>
-            <div className="fixed top-0 left-0 z-20 w-64 h-full transition-all duration-500 transform -translate-x-full bg-stockholm bg-cover bg-blend-overlay bg-dark shadow-lg peer-checked:translate-x-0">
+            <div className="fixed top-0 left-0 z-20 w-64 h-full transition-all duration-500 transform -translate-x-full bg-stockholm bg-cover bg-blend-overlay bg-medium shadow-lg peer-checked:translate-x-0">
 
                 {navigationConfig.map((item)=>{
                     return(
