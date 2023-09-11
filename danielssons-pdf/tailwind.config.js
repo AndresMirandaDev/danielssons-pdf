@@ -19,6 +19,7 @@ export default {
       backgroundImage: {
         stockholm: 'url(/src/assets/background.jpg)',
         logo: 'url(/src/assets/logo.png)',
+        project: 'url(/src/assets/projects-background.jpeg)',
       },
     },
   },
