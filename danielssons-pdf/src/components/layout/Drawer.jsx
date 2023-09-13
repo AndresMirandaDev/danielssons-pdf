@@ -12,8 +12,8 @@ const Drawer = ({children}) => {
 
     return (
         <div className="flex">
-            <input type="checkbox" id="drawer-toggle" className="relative sr-only peer" defaultChecked={open} onClick={()=>setOpen(!open)}/>
-            <label htmlFor="drawer-toggle" className="cursor-pointer absolute top-0 left-0 inline-block p-4 transition-all opacity-50 duration-500 bg-medium rounded-lg peer-checked:rotate-180 peer-checked:left-64 hover:opacity-100">
+            <input type="checkbox" id="drawer-toggle" className="relative sr-only peer touch-auto" defaultChecked={open} onClick={()=>setOpen(!open)}/>
+            <label htmlFor="drawer-toggle" className="cursor-pointer absolute top-0 left-0 inline-block p-4 transition-all opacity-50 duration-500 bg-medium rounded-lg peer-checked:rotate-180 peer-checked:left-64 hover:opacity-100 z-10">
                 <div className="w-6 h-1 mb-3 -rotate-45 bg-white rounded-lg"></div>
                 <div className="w-6 h-1 rotate-45 bg-white rounded-lg"></div>
             </label>

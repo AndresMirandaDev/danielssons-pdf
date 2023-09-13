@@ -14,6 +14,7 @@ import salaryReportsApi from "../api/salaryReports";
 import useMonth from "../hooks/useMonth";
 import useWeek from "../hooks/useWeek";
 import HomeInfo from "../components/home/HomeInfo";
+import Spinner from "../components/Spinner";
 
 
 const user={
@@ -49,7 +50,7 @@ const Home = () => {
         loadReports();
     },[])
     return (
-        <div className="bg-gradient-to-br from-black to-black w-screen">
+        <div className="bg-black w-screen">
             <div className="md:grid grid-cols-2 grid-rows-2 md:gap-3">
                 <div className="flex justify-center items-center text-white bg-gradient-to-b from-primaryOpacity to-dark rounded-lg">
                     <div className="flex-col">
@@ -64,11 +65,11 @@ const Home = () => {
                     </div>    
                     <span className="text-white font-light text-center m-6 text-3xl p-4">Projekt</span>
                     </div>
-                    {projects.map((project)=>{
+                    {projects.length===0 ? <div className="flex justify-center"><Spinner /></div> : projects.map((project)=>{
                         const labelClass = "font-extralight text-yellow"
                         const itemContainerClass = "m-6 p-2 text-center text-lg font-extralight"
                         return (
-                            <div className="m-2 text-white  rounded-lg grid md:grid-cols-2 md:grid-rows-2 overflow-hidden bg-blend-overlay bg-dark bg-opacity-30 hover:scale-[1.03] duration-500">
+                            <div className="m-2 text-white  rounded-lg grid md:grid-cols-2 md:grid-rows-2 overflow-hidden bg-blend-overlay bg-dark bg-opacity-30 hover:scale-[1.03] duration-500 ">
                                 <div className={`md:row-span-3 flex justify-center items-center text-3xl font-extralight shadow-xl bg-project bg-cover bg-blend-overlay bg-primary`}>{project.name}</div>
                                 <div className={itemContainerClass}><div className={labelClass}> Projekt nummer</div>{project.projectNumber}</div>
                                 <div className={itemContainerClass}><div className={labelClass}>Address</div>{project.address}</div>
@@ -77,12 +78,21 @@ const Home = () => {
                         )
                     })}
                 </div>
+                {
+                tools.length===0 
+                ? 
+                    <div className="flex justify-center items-center h-screen bg-gradient-to-b from-primaryOpacity to-black rounded-xl p-4">
+                        <Spinner />
+                    </div> 
+                    : 
                 <div className="bg-gradient-to-b from-primaryOpacity to-black rounded-xl p-4 md:grid grid-cols-2 grid-rows-2">
                   <HomeInfo data={tools.length} label='Registrerade verktyg' icon={<BsTools />}/>
                   <HomeInfo data={toolsInReparation.length} label="Verktyg på reparation" icon={<AiTwotoneTool />}/>
                   <HomeInfo data={rentedTools.length} label='Inhyrda verktyg' icon={<TbCalendarStats />}/>
                   <HomeInfo data={sentReports.length} label={`Inskickade rapporter i ${month}`} icon={<AiOutlineFileDone />}/>
                 </div>
+                }
+                
             </div>
         </div>
         );
