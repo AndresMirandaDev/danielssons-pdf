@@ -11,8 +11,8 @@ function App() {
   return (
     <>
     <AuthContext.Provider value={{user, setUser}}> 
-      {/* {user ? <SidebarLayout />: <Login />} */}
-      <SidebarLayout />
+      {user ? <SidebarLayout />: <Login />}
+      {/* <SidebarLayout /> */}
       
     </AuthContext.Provider>
     </>

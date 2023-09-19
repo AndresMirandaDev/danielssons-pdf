@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from "../../views/Home";
 import Drawer from "./Drawer";
-import Reports from "../../views/Reports";
-import ReviewReports from "../../views/ReviewReports";
+import Reports from "../../views/reports/Reports";
+import ReviewReports from "../../views/reports/ReviewReports";
 
 const SidebarLayout = () => {
     return ( 

@@ -10,17 +10,24 @@ import useAuth from "../../auth/useAuth";
 import authApi from '../../api/auth'
 import ErrorMessage from '../../components/ErrorMessage';
 import { useState } from 'react';
+import Spinner from '../../components/Spinner';
 
 const Login = () => {
   const auth =  useAuth()
   const [loginFailed, setLoginFailed] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async ({email, password}) =>{
+   setLoading(true)
    const result =  await authApi.login(email, password)
-   if(!result.ok) return setLoginFailed(true)
+   if(!result.ok) {
+    setLoading(false) 
+    
+    return setLoginFailed(true)
+   }
 
    auth.logIn(result.data['este es el token']) 
-
+   setLoading(false)
   }
   
   return (
@@ -42,7 +49,8 @@ const Login = () => {
           <AppFormField name='email' icon={<FaUser color={colors.light}/>} label='Användarnamn'/>
           <AppFormField name='password' icon={<FaLock color={colors.light}/>} label='Lösenord' type='password'/>
           <ErrorMessage error='Fel användarnamn och/eller lösenord' visible={loginFailed}/>
-          <SubmitButton title='Log in' type='submit' color='yellow' textColor='primary'/>
+
+          {loading? <div className='justify-center items-center flex'><Spinner /></div> :<SubmitButton title='Log in' type='submit' color='yellow' textColor='primary'/>}
           </div>
         </AppForm>
           </div>
