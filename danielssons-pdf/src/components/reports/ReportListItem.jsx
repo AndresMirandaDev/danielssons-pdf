@@ -3,8 +3,11 @@ import {VscCalendar} from 'react-icons/vsc'
 import {BsFillArrowRightCircleFill} from 'react-icons/bs'
 
 import useMonth from '../../hooks/useMonth'
+import { useNavigate } from 'react-router-dom'
 
 const ReportListItem = ({report}) => {
+    const navigate = useNavigate()
+
     const {worker , date} =report
 
     const reportDate = new Date(date)
@@ -29,7 +32,7 @@ const ReportListItem = ({report}) => {
         </div>
         <div className='text-center font-extralight flex justify-center items-center text-xl md:text-2xl'>
             <span >Granska Rapport</span>
-            <BsFillArrowRightCircleFill className='text-yellow m-4  cursor-pointer hover:scale-110 duration-500'/>
+            <BsFillArrowRightCircleFill className='text-yellow m-4  cursor-pointer hover:scale-110 duration-500' onClick={()=>navigate('/reportdetails', {state:report})}/>
         </div>
     </div> );
 }
