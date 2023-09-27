@@ -4,6 +4,4 @@ textarea:focus, input:focus{
 
 }
 
-::-webkit-scrollbar { 
-    display: none;  /* Safari and Chrome */
-}
+
