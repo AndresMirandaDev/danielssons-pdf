@@ -2,13 +2,16 @@ import React from 'react';
 import { useState } from "react";
 import { NavLink } from "react-router-dom";
 import { FaHome } from 'react-icons/fa';
+import {BiSolidLogOut} from 'react-icons/bi'
 
 import navigationConfig from "../../config/navigation.config";
+import useAuth from '../../auth/useAuth';
 
 
 
 const Drawer = ({children}) => {
     const [open, setOpen] = useState(false)
+    const auth = useAuth()
 
     return (
         <div className="flex">
@@ -31,6 +34,12 @@ const Drawer = ({children}) => {
                         </NavLink>
                     )
                 })}
+                <div className="px-6 py-4 hover:bg-yellow  p-4 rounded-lg hover:text-primary text-white duration-300 flex items-center my-20 cursor-pointer" onClick={()=>{auth.logOut()}}>
+                    <span className={`text-3xl float-left ${open && 'rotate-[360deg]'} duration-1000`}>
+                        <BiSolidLogOut />
+                    </span>
+                        <span className="font-semibold text-center ml-5">Logga ut</span>
+                </div>
             </div>
             <div className={` w-screen duration-300`}>
                 {children}

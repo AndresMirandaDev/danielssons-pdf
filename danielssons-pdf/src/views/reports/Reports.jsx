@@ -19,7 +19,7 @@ const Reports = () => {
                 <div className="bg-yellow w-screen bg-gradient-to-br from-black to-primary rounded-lg flex justify-center relative">
                     <div className="text-white text-center m-4 text-3xl font-extralight">Ladda ner lön rapporter</div>
                     <span className='text-white h-full w-full md:text-[20rem] absolute md:flex justify-center items-center opacity-50'>
-                        <FaDownload className='hover:bg-yellow rounded-full p-4 hover:text-primary duration-500 cursor-pointer'/>
+                        <FaDownload className='hover:bg-yellow rounded-full p-4 hover:text-primary duration-500 cursor-pointer' onClick={()=>{navigate('/reports/downloadreports')}}/>
                     </span>
                 </div>
             </div>

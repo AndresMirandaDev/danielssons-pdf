@@ -5,6 +5,10 @@ import { useState } from 'react'
 import Home from './views/Home'
 import Drawer from './components/layout/Drawer'
 import SidebarLayout from './components/layout/SidebarLayout'
+import PDFFile from './components/PDFFile'
+import { PDFViewer } from '@react-pdf/renderer';
+
+
 function App() {
   const [user, setUser] = useState()
   console.log(user)
@@ -12,7 +16,9 @@ function App() {
     <>
     <AuthContext.Provider value={{user, setUser}}> 
       {user ? <SidebarLayout />: <Login />}
-      {/* <SidebarLayout /> */}
+      {/* <PDFViewer style={{height:'100vh' , width:'100vw'}}>
+        <PDFFile />
+      </PDFViewer> */}
       
     </AuthContext.Provider>
     </>
