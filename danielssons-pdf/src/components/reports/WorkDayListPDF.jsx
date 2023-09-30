@@ -1,6 +1,7 @@
 import React from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font, } from '@react-pdf/renderer' 
 import colors from '../../config/colors';
+import { FaCcJcb } from 'react-icons/fa';
 
 const weekDays= {
     0: 'Söndag',
@@ -31,7 +32,7 @@ const WorkDayListPDF = ({workDay}) => {
             <Text style={styles.text}>{weekDays[weekDay]}</Text>
             <View style={styles.place}>
                 {workDay.places.map((place)=>{
-                    return <Text key={place._id} style={styles.text}>{place.project.name} {place.hours} (t)</Text>
+                    return <Text key={place._id} style={styles.placeText}>{place.project.name} {place.hours} (t)</Text>
                 })}
             </View>
             <Text style={styles.text}>{dayTotalHours}</Text>
@@ -44,16 +45,27 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         marginVertical:10,
         borderBottomColor:colors.medium,
-        borderBottom:0.1
+        borderBottom:0.1,
+
     },
     text:{
         fontWeight:'extralight',
         fontFamily:'Didact Gothic',
         textAlign:'center',
-        marginHorizontal:40,
-        color:colors.primaryOpacity
-
+        color:colors.primaryOpacity,
+        width:'25%'
+    },
+    place:{
+        width:'30%',
+        justifyContent:'center'
+    },
+    placeText:{
+        fontWeight:'extralight',
+        fontFamily:'Didact Gothic',
+        textAlign:'center',
+        color:colors.primaryOpacity,
     }
+   
 })
  
 export default WorkDayListPDF;

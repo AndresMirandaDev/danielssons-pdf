@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Page, Text, View, Document, StyleSheet, Image, Font } from '@react-pdf/renderer' 
 import colors from '../config/colors';
 import useMonth from '../hooks/useMonth';
 import Logo from '../assets/logo.png'
 import WorkDayListPDF from './reports/WorkDayListPDF';
+import useApi from '../hooks/useApi';
+import salaryReports from '../api/salaryReports';
 
+//mock report for developing
 // const report = {
-//     _id: "65138b0bca0892cf1047b134",
+//     _id: "6517c3b8ffabdb0ff960e7ab",
 //     worker: {
 //         _id: "64e0ed62c17df4f4bbcb8429",
 //         name: "Andres Miranda"
 //     },
-//     date: "2023-09-11T06:39:45.967Z",
+//     date: "2023-09-30T06:39:59.496Z",
 //     workDays: [
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-01T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
@@ -24,13 +27,13 @@ import WorkDayListPDF from './reports/WorkDayListPDF';
 //                         projectNumber: 360139
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7ad"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7ac"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-04T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
@@ -40,14 +43,24 @@ import WorkDayListPDF from './reports/WorkDayListPDF';
 //                         projectNumber: 360139
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7af"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7ae"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-05T06:39:59.000Z",
 //             places: [
+//                 {
+//                     project: {
+//                         _id: "64d0cc5f21ba645438136208",
+//                         name: "Täby skolan",
+//                         address: "Täby skolan\n\n",
+//                         projectNumber: 360030
+//                     },
+//                     hours: 2,
+//                     _id: "6517c3b8ffabdb0ff960e7b1"
+//                 },
 //                 {
 //                     project: {
 //                         _id: "64db7e4bc3dcda47b84fe74a",
@@ -55,78 +68,78 @@ import WorkDayListPDF from './reports/WorkDayListPDF';
 //                         address: "Loftvägen 16 ",
 //                         projectNumber: 360139
 //                     },
-//                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     hours: 5,
+//                     _id: "6517c3b8ffabdb0ff960e7b2"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7b0"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-06T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64f59a1f490d0944640a1a1c",
+//                         name: "Vårby",
+//                         address: "Bäckgårdsvägen 22",
+//                         projectNumber: 360140
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7b4"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7b3"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-07T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64f59a1f490d0944640a1a1c",
+//                         name: "Vårby",
+//                         address: "Bäckgårdsvägen 22",
+//                         projectNumber: 360140
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7b6"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7b5"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-08T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64f59a1f490d0944640a1a1c",
+//                         name: "Vårby",
+//                         address: "Bäckgårdsvägen 22",
+//                         projectNumber: 360140
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7b8"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7b7"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-11T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64f59a1f490d0944640a1a1c",
+//                         name: "Vårby",
+//                         address: "Bäckgårdsvägen 22",
+//                         projectNumber: 360140
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7ba"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7b9"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-12T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
@@ -135,46 +148,58 @@ import WorkDayListPDF from './reports/WorkDayListPDF';
 //                         address: "Loftvägen 16 ",
 //                         projectNumber: 360139
 //                     },
-//                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     hours: 5,
+//                     _id: "6517c3b8ffabdb0ff960e7bc"
+//                 },
+//                 {
+//                     project: {
+//                         _id: "64d0cc5f21ba645438136208",
+//                         name: "Täby skolan",
+//                         address: "Täby skolan\n\n",
+//                         projectNumber: 360030
+//                     },
+//                     hours: 3,
+//                     _id: "6517c3b8ffabdb0ff960e7bd"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7bb"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-13T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64d0cc5f21ba645438136208",
+//                         name: "Täby skolan",
+//                         address: "Täby skolan\n\n",
+//                         projectNumber: 360030
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7bf"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
+//             _id: "6517c3b8ffabdb0ff960e7be"
 //         },
 //         {
-//             date: "2023-09-11T06:39:45.969Z",
+//             date: "2023-09-14T06:39:59.000Z",
 //             places: [
 //                 {
 //                     project: {
-//                         _id: "64db7e4bc3dcda47b84fe74a",
-//                         name: "Skogås",
-//                         address: "Loftvägen 16 ",
-//                         projectNumber: 360139
+//                         _id: "64d0cc5f21ba645438136208",
+//                         name: "Täby skolan",
+//                         address: "Täby skolan\n\n",
+//                         projectNumber: 360030
 //                     },
 //                     hours: 8,
-//                     _id: "651390695ea154573fa825e3"
+//                     _id: "6517c3b8ffabdb0ff960e7c1"
 //                 }
 //             ],
-//             _id: "651390695ea154573fa825e2"
-//         },
+//             _id: "6517c3b8ffabdb0ff960e7c0"
+//         }
 //     ],
+//     __v: 0
 // }
+
 
 Font.register({
     family: 'Didact Gothic',
@@ -184,7 +209,10 @@ Font.register({
 
 
 
-const PDFFile = ({report}) => {
+const PDFFile = ({report}) => { //pass report as props
+    
+
+
     const month = useMonth(new Date(report.date))
     const year = new Date(report.date).getFullYear()
     
@@ -195,7 +223,13 @@ const PDFFile = ({report}) => {
     
         return accumulator + dayTotalHours;
       }, 0);
-    
+
+      const places = report.workDays
+        .map((workDay) => workDay.places.map((place) => place.project.name))
+        .flat()
+        .filter((value, index, self) => self.indexOf(value) === index);
+      
+
     return ( 
         <Document>
             <Page size='A4' style={styles.body}>
@@ -223,6 +257,33 @@ const PDFFile = ({report}) => {
                 <View style={styles.tableFooter}>
                     <Text style={styles.footerText}>Summa Timmar</Text>
                     <Text style={styles.footerText}>{reportTotalHours}</Text>
+                </View>
+                <View style={styles.placesHeaderContainer}>
+                    <Text style={styles.tableHeadText}>Arbetsplats</Text>
+                    <Text style={styles.tableHeadText}>Summa timmar</Text>
+                    <Text style={styles.tableHeadText}>Projekt  nummer</Text>
+                </View>
+                <View>
+                 {places.map((place, index) => {
+                    let totalHours = 0;
+                    let projectNumber;
+
+                        report.workDays.map((workDay) => {
+                        workDay.places.map((p) => {
+                        if (p.project.name === place) {
+                            totalHours += p.hours;
+                            projectNumber = p.project.projectNumber;
+                        }
+                        });
+                    });
+          return (
+            <View key={index} style={styles.placesInfoContainer}>
+                <Text style={styles.placesInfoText}>{place}</Text>
+                <Text style={styles.placesInfoText}>{totalHours}</Text>
+                <Text style={styles.placesInfoText}>{projectNumber}</Text>
+            </View>
+          );
+        })}
                 </View>
             </Page>
         </Document>
@@ -302,6 +363,24 @@ const styles =  StyleSheet.create({
     },
     footerText:{
         color:colors.light,
+    },
+    placesHeaderContainer:{
+        backgroundColor:colors.medium,
+        borderTopLeftRadius:25,
+        borderBottomRightRadius:25,
+        flexDirection:'row',
+        marginTop:20
+    }
+    ,
+    placesInfoContainer:{
+        marginTop:15,
+        flexDirection:'row',
+        backgroundColor:colors.light,
+    },
+    placesInfoText:{
+        fontFamily:'Didact Gothic',
+        width:'30%',
+        textAlign:'center'
     }
 })
  
