@@ -15,11 +15,7 @@ function App() {
   return (
     <>
     <AuthContext.Provider value={{user, setUser}}> 
-      {/* {user ? <SidebarLayout />: <Login />} */}
-      <PDFViewer style={{height:'100vh' , width:'100vw'}}>
-        <PDFFile />
-      </PDFViewer>
-      
+      {user ? <SidebarLayout />: <Login />}
     </AuthContext.Provider>
     </>
   )
