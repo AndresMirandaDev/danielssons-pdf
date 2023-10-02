@@ -9,15 +9,11 @@ import SubmitButton from "../../components/forms/SubmitButton";
 import AppFormDatePicker from "../../components/forms/AppFormDatePicker";
 import ReportListItem from "../../components/reports/ReportListItem";
 import {BsSearch} from 'react-icons/bs'
-import Dialog from "../../components/Dialog";
-
 
 const ReviewReports = () => {
     const {data:reports, request:loadReports} = useApi(salaryReportsApi.getReports)
     const {data: users , request:loadUsers} =  useApi(usersApi.getAllUsers)
     const [reportsInDisplay, setReportsInDisplay] = useState([])
-
-    const [showDialog, setShowDialog] = useState(true)
 
     const [user, setUser] = useState('')
     const [date, setDate] =useState('')
@@ -114,7 +110,6 @@ const ReviewReports = () => {
                     })}
                 </div>
             </div>
-            <Dialog open={showDialog} onClose={()=>{setShowDialog(false)}}/>
         </div> 
     );
 }

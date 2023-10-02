@@ -9,12 +9,14 @@ import { useState } from 'react'
 import Modal from '../Modal'
 import salaryReportsApi from '../../api/salaryReports'
 import Dialog from '../Dialog'
+import Spinner from '../Spinner'
 
 const ReportListItem = ({report, refresh}) => {
     const navigate = useNavigate()
 
     const [dialogVisible, setDialogVisible] = useState(false)
     const [modalVisible, setModalVisible] = useState(false)
+    const [loading, setLoading] =useState(false)
 
     const {worker , date} =report
 
@@ -23,9 +25,11 @@ const ReportListItem = ({report, refresh}) => {
     const month = useMonth(reportDate)
 
     const handleDelete = async () =>{
+        setLoading(true)
         const result = await salaryReportsApi.deleteReport(report)
 
         if(result.ok){
+            setLoading(false)
             setModalVisible(false)
             setDialogVisible(true)
 
@@ -64,18 +68,18 @@ const ReportListItem = ({report, refresh}) => {
         <Modal open={modalVisible} onClose={()=>{setModalVisible(false)}}>
             <FaTrashAlt className='text-danger text-4xl mx-auto'/>
             <div className='mx-auto my-4 w-full'>
-                <h3 className='text-3xl text-primaryOpacity text-center my-4 font-bold'>Bekräfta radering</h3>
+                <h3 className='text-3xl text-primaryOpacity text-center my-4 '>Bekräfta radering</h3>
                 <span className='text-dark font-extralight text-xl text-center'>Är du säker du vill radera följande rapport?</span>
-                <span className='text-dark text-xl block text-center my-4'>{worker.name} {month} {reportDate.getFullYear()}</span>
+                <span className='text-dark text-xl font-extralight block text-center my-4'>{worker.name} {month} {reportDate.getFullYear()}</span>
             </div>
-            <div className='flex gap-4'>
+            {loading ? <div className='flex justify-center'><Spinner /></div> : (<div className='flex gap-4'>
                 <button className='btn bg-danger rounded-lg p-2 w-full' onClick={handleDelete}>
                     Delete
                 </button>
                 <button className='btn bg-light w-full text-dark rounded-lg p-2' onClick={()=>{setModalVisible(false)}}>
                     Cancel
                 </button>
-            </div>
+            </div>)}
         </Modal>
        <Dialog open={dialogVisible} onClose={()=>{setDialogVisible(false)}}>
             <div className='flex justify-center'>
