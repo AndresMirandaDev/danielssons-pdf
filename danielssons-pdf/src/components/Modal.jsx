@@ -1,6 +1,7 @@
 import {AiOutlineClose} from 'react-icons/ai'
 
 const Modal = ({open, onClose, children}) => {
+    console.log(open)
     return ( 
     <div className={`fixed flex inset-0 justify-center items-center transition-colors ${open ? 'visible bg-black/40' : 'invisible'}`} onClick={onClose}>
          <div className={`bg-white rounded-xl shadow p-6 transition-all ${open ? 'scale-100 opacity-100':'scale-125 opacity-0'}`} onClick={(e)=>{e.stopPropagation()}}>

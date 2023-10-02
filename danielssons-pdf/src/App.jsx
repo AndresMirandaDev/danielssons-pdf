@@ -11,7 +11,7 @@ function App() {
   
   useEffect(()=>{
     setUser(storage.getUser())
-  })
+  },[])
   return (
     <>
     <AuthContext.Provider value={{user, setUser}}> 
