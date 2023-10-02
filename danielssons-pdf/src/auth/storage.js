@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode';
 const key = 'authToken';
 
 const storeToken = (authToken) => {
