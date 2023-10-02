@@ -61,7 +61,7 @@ const ReportDetails = () => {
         <div className=" bg-black w-screen">
             <div className="text-white bg-gradient-to-b from-primaryOpacity to-dark rounded-lg md:flex  p-12 justify-center min-h-screen">
                 {updating? <Spinner /> : <div className="w-full border border-light border-opacity-20 rounded-xl bg-black bg-opacity-25 grid grid-cols-2 overflow-scroll md:overflow-hidden">
-                    <div className="flex justify-around items-center ">
+                    <div className="flex justify-around items-center p-10">
                         <div className="bg-logo w-20 h-20 md:w-40 md:h-40 bg-contain bg-no-repeat"></div>
                         <div className="text-xl md:text-3xl text-center">
                             <span>Lön Rappport</span>

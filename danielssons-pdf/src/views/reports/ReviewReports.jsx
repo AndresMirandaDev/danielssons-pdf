@@ -9,12 +9,18 @@ import SubmitButton from "../../components/forms/SubmitButton";
 import AppFormDatePicker from "../../components/forms/AppFormDatePicker";
 import ReportListItem from "../../components/reports/ReportListItem";
 import {BsSearch} from 'react-icons/bs'
+import Dialog from "../../components/Dialog";
 
 
 const ReviewReports = () => {
     const {data:reports, request:loadReports} = useApi(salaryReportsApi.getReports)
     const {data: users , request:loadUsers} =  useApi(usersApi.getAllUsers)
     const [reportsInDisplay, setReportsInDisplay] = useState([])
+
+    const [showDialog, setShowDialog] = useState(true)
+
+    const [user, setUser] = useState('')
+    const [date, setDate] =useState('')
 
     useEffect(()=>{
         loadReports()
@@ -23,6 +29,39 @@ const ReviewReports = () => {
 
     const handleFilter = ({user, date}) =>{
         const selectedDate = new Date(date)
+
+        setUser(user)
+        setDate(date)
+
+        if(user && date){
+            setReportsInDisplay(reports.filter((report)=>{
+                const reportDate = new Date(report.date)
+
+                return report.worker._id===user && selectedDate.getFullYear() ===  reportDate.getFullYear() && selectedDate.getMonth() === reportDate.getMonth()
+            }))
+        }else if(!user && date){
+            setReportsInDisplay(reports.filter((report)=>{
+                const reportDate = new Date(report.date)
+
+                return selectedDate.getFullYear() ===  reportDate.getFullYear() && selectedDate.getMonth() === reportDate.getMonth()
+            }))
+        }
+        else if(user && !date){
+            setReportsInDisplay(reports.filter((report)=>{
+                const reportDate = new Date(report.date)
+
+                return report.worker._id===user
+            }))
+        }
+       
+    }
+
+    const handleUpdate =async (user, date)=> {
+        const selectedDate = date
+
+        console.log(date)
+        
+        const reports =(await salaryReportsApi.getReports()).data
 
         if(user && date){
             setReportsInDisplay(reports.filter((report)=>{
@@ -71,10 +110,11 @@ const ReviewReports = () => {
                 </div>
                 <div className="md:w-full md:h-full bg-black rounded-xl p-4 m-1 bg-opacity-25">
                     {reportsInDisplay.length===0? <div className="text-3xl font-extralight text-center">Inga rapporter hittades</div> : reportsInDisplay.map((report)=>{
-                        return <ReportListItem report={report} key={report._id}/>
+                        return <ReportListItem report={report} key={report._id} refresh={()=>{handleUpdate(user,date)}}/>
                     })}
                 </div>
             </div>
+            <Dialog open={showDialog} onClose={()=>{setShowDialog(false)}}/>
         </div> 
     );
 }

@@ -35,9 +35,14 @@ const updateReport = (report) => {
   return client.put(endpoint + '/' + report._id, newReport);
 };
 
+const deleteReport = (report) => {
+  return client.delete(endpoint + '/' + report._id);
+};
+
 export default {
   getReports,
   newSalaryReport,
   updateReport,
   getReportById,
+  deleteReport,
 };
