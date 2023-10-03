@@ -203,7 +203,7 @@ import salaryReports from '../api/salaryReports';
 
 Font.register({
     family: 'Didact Gothic',
-    src:'http://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
+    src:'https://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
     fontWeight:'ultralight'
   });
 
