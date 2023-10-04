@@ -71,7 +71,7 @@ const DownloadReports = () => {
                 </div>
                 <div className="md:w-full md:h-full bg-black rounded-xl p-4 m-1 bg-opacity-25">
                     {reportsInDisplay.length===0? <div className="text-3xl font-extralight text-center">Inga rapporter hittades</div> : reportsInDisplay.map((report)=>{
-                        return <DownloadPDF report={report}/>
+                        return <DownloadPDF key={report._id} report={report}/>
                     })}
                 </div>
             </div>
