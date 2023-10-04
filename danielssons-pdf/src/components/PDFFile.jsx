@@ -201,11 +201,11 @@ import salaryReports from '../api/salaryReports';
 // }
 
 
-Font.register({
-    family: 'Didact Gothic',
-    src:'https://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
-    fontWeight:'ultralight'
-  });
+// Font.register({
+//     family: 'Didact Gothic',
+//     src:'https://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
+//     fontWeight:'ultralight'
+//   });
 
 
 
@@ -315,14 +315,12 @@ const styles =  StyleSheet.create({
         fontSize:25,
         color:colors.light,
         marginBottom:2,
-        fontFamily:'Didact Gothic',
         color:colors.medium
 
     },
     name:{
         color:colors.light,
         fontWeight:'extralight',
-        fontFamily:'Didact Gothic',
         color:colors.medium
 
     },
@@ -332,7 +330,6 @@ const styles =  StyleSheet.create({
     month:{
         color:colors.light,
         fontWeight:'extralight',
-        fontFamily:'Didact Gothic',
         color:colors.medium
     },
     table:{
@@ -378,7 +375,6 @@ const styles =  StyleSheet.create({
         backgroundColor:colors.light,
     },
     placesInfoText:{
-        fontFamily:'Didact Gothic',
         width:'30%',
         textAlign:'center'
     }

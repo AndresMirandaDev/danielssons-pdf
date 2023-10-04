@@ -13,11 +13,11 @@ const weekDays= {
     6: 'Lördag',
   }
 
-  Font.register({
-    family: 'Didact Gothic',
-    src:'https://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
-    fontWeight:'ultralight'
-  });
+//   Font.register({
+//     family: 'Didact Gothic',
+//     src:'https://fonts.gstatic.com/s/didactgothic/v10/v8_72sD3DYMKyM0dn3LtWm4ooKQJV7rZJEeBgiz-w_g.ttf',
+//     fontWeight:'ultralight'
+//   });
 
 const WorkDayListPDF = ({workDay}) => {
     const date = new Date(workDay.date)
@@ -50,7 +50,6 @@ const styles = StyleSheet.create({
     },
     text:{
         fontWeight:'extralight',
-        fontFamily:'Didact Gothic',
         textAlign:'center',
         color:colors.primaryOpacity,
         width:'25%'
@@ -61,7 +60,6 @@ const styles = StyleSheet.create({
     },
     placeText:{
         fontWeight:'extralight',
-        fontFamily:'Didact Gothic',
         textAlign:'center',
         color:colors.primaryOpacity,
     }
